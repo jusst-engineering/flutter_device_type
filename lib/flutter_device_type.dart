@@ -4,6 +4,8 @@ import 'dart:io';
 import 'dart:ui' as ui;
 import 'dart:math' as Math;
 
+import 'package:flutter/foundation.dart';
+
 class Device {
   static double devicePixelRatio = ui.window.devicePixelRatio;
   static ui.Size size = ui.window.physicalSize;
@@ -46,8 +48,8 @@ class Device {
 
     bool isTablet;
     bool isPhone;
-    bool isIos = Platform.isIOS;
-    bool isAndroid = Platform.isAndroid;
+    bool isIos = !kIsWeb && Platform.isIOS;
+    bool isAndroid = !kIsWeb && Platform.isAndroid;
     bool isIphoneX = false;
     bool hasNotch = false;
 
@@ -122,7 +124,7 @@ class Device {
 
   static int get _ppi => Platform.isAndroid
       ? 160
-      : Platform.isIOS
+      : (!kIsWeb && Platform.isIOS)
           ? 150
           : 96;
 
